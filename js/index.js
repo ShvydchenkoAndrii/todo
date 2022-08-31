@@ -8,11 +8,11 @@
         })
     }
 
-    const check = document.querySelectorAll('.checkbox');
+    const check = document.querySelectorAll('.card');
 
     for (let elem of check) {
     elem.addEventListener('click', () => {
-        const name = elem.closest('.first_name')
+        const name = elem.querySelector('.first_name')
         name.classList.toggle('active')
     })
     }

@@ -53,3 +53,19 @@ button {
 input {
     margin-right: 10px;
 }
+
+.text_todo {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+ 
+.what_todo {
+    width: 400px;
+    height: 50px;
+}
+
+.add_todo {
+    width: 100px;
+    height: 55px;
+}

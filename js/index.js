@@ -8,4 +8,12 @@
         })
     }
 
+    const check = document.querySelectorAll('.checkbox');
+
+    for (let elem of check) {
+    elem.addEventListener('click', () => {
+        const name = elem.closest('.first_name')
+        name.classList.toggle('active')
+    })
+    }
 })();

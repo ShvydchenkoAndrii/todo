@@ -38,3 +38,18 @@ h1 {
 button {
     width: 80%;
 }
+
+.check_text {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap:  10px
+}
+
+.first_name.active {
+    text-decoration: line-through;
+}
+
+input {
+    margin-right: 10px;
+}

@@ -12,7 +12,7 @@ h1 {
     text-align: center;
 }
 
-.some_cards_counteiner {
+#section_cards {
     margin: 60px;
     display: flex;
     align-items: center;
@@ -68,4 +68,9 @@ input {
 .add_todo {
     width: 100px;
     height: 55px;
+}
+
+.msg {
+    text-align: center;
+    margin: 30px 0;
 }

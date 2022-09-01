@@ -28,9 +28,9 @@
 
         if (input !== '' && input1 !== '' && input2 !== '' && input3 !== '') {
             let newElement = document.createElement('div');
+            newElement.setAttribute('class', 'card2')
             newElement.innerHTML = `
-                <div class="card" id="card">
-                        <h2 class="first_name">${input}</h2>
+                        <h2 class="first_name2">${input}</h2>
                          <ul>
                             <li>Last name: ${input1}</li>
                             <li>Age: ${input2}</li>
@@ -38,7 +38,6 @@
                         </ul>
                         <input type="checkbox" class="checkbox">
                         <button class="butt1" id="butt">Hide</button>
-                 </div>
                  `;
             cards.appendChild(newElement);
 
@@ -47,20 +46,19 @@
 
         for (let element of button) {
             element.addEventListener('click', () => {
-                let all = element.closest('.card')
+                let all = element.closest('div')
                 all.remove();
             })
         }
 
-        const check = document.querySelectorAll('.card');
+        const check2 = document.querySelectorAll('.card2');
 
-    for (let elem of check) {
-        elem.addEventListener('change', () => {
-            const name = elem.closest('.card').querySelector('.first_name')
-            name.classList.toggle('active')
-        })
-    }
+        for (let elem of check2) {
+            elem.addEventListener('change', () => {
+                const name = elem.closest('.card2').querySelector('.first_name2')
+                name.classList.toggle('active')
+            })
+        }
     })
-
 
 })();

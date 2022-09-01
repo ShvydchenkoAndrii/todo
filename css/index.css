@@ -21,6 +21,10 @@ h1 {
     flex-direction: row;
 }
 
+#section_cards.active {
+    text-decoration: line-through;
+}
+
 .card {
     display: flex;
     flex-direction: column;

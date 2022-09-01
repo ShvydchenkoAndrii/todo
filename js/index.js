@@ -40,6 +40,10 @@
                         <button class="butt1" id="butt">Hide</button>
                  `;
             cards.appendChild(newElement);
+            newElement.addEventListener('change', () => {
+                const name2 = newElement.closest('.card2').querySelector('.first_name2')
+                name2.classList.toggle('active')
+            })
 
         }
         const button = document.querySelectorAll('.butt1')
@@ -48,15 +52,6 @@
             element.addEventListener('click', () => {
                 let all = element.closest('div')
                 all.remove();
-            })
-        }
-
-        const check2 = document.querySelectorAll('.card2');
-
-        for (let elem of check2) {
-            elem.addEventListener('change', () => {
-                const name = elem.closest('.card2').querySelector('.first_name2')
-                name.classList.toggle('active')
             })
         }
     })

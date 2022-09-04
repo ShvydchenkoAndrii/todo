@@ -12,6 +12,13 @@ h1 {
     text-align: center;
 }
 
+#section_todo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 #todo_items_list {
     margin: 60px;
     display: flex;
@@ -44,7 +51,7 @@ button {
     margin: 0;
 }
 
-.text_todo {
+#text_todo {
     display: flex;
     justify-content: center;
     gap: 50px;

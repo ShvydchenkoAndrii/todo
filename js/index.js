@@ -2,6 +2,7 @@
     const cards = document.getElementById("todo_items_list");
     const addButt = document.querySelector(".add_todo");
     const txtInput = document.querySelector('.what_todo');
+    let count = 0;
 
 
     function createNewToDo() {
@@ -16,19 +17,25 @@
                           <button class="butt1" id="butt">delete</button>
                    `;
             cards.appendChild(newElement);
-        newElement.addEventListener("change", () => {
-            const name2 = newElement.closest("div").querySelector(".txt");
-            name2.classList.toggle("active");
-        });
-        const button = document.querySelectorAll(".butt1");
-
-        for (let element of button) {
-            element.addEventListener("click", () => {
-                let all = element.closest(".todo_item");
-                all.remove();
+            document.getElementById('todo_items_list').appendChild(newElement);
+            count++;
+            document.getElementById('counter').innerHTML = count;
+            newElement.addEventListener("change", () => {
+                const name2 = newElement.closest("div").querySelector(".txt");
+                name2.classList.toggle("active");
             });
+            const button = document.querySelectorAll(".butt1");
+
+            for (let element of button) {
+                element.addEventListener("click", () => {
+                    count--;
+                    document.getElementById('counter').innerHTML = count;
+                    let all = element.closest(".todo_item");
+                    all.remove();
+
+                });
+            }
         }
-    }
     }
 
     addButt.addEventListener('click', createNewToDo);
@@ -37,5 +44,5 @@
             createNewToDo();
         }
     });
-    
+
 })();

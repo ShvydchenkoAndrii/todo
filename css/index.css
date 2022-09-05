@@ -1,104 +1,104 @@
 :root {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background-color: blanchedalmond;
+  background-color: blanchedalmond;
 }
 
 h1 {
-    text-align: center;
+  text-align: center;
 }
 
-#section_todo{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+#section_todo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 #todo_items_list {
-    margin: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-direction: column;
+  margin: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: column;
 }
 
 button {
-    width: 100%;
+  width: 100%;
 }
 
 .todo_item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border: 1px solid black;
-    padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid black;
+  padding: 10px;
 }
 
 .txt.active {
-    text-decoration: line-through;
-    opacity: 0.6;
+  text-decoration: line-through;
+  opacity: 0.6;
 }
 
 .txt {
-    width: 100%;
-    margin: 0;
+  width: 100%;
+  margin: 0;
 }
 
 #text_todo {
-    display: flex;
-    justify-content: center;
-    gap: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
 }
 
 .what_todo {
-    width: 400px;
-    height: 50px;
+  width: 400px;
+  height: 50px;
 }
 
 .add_todo {
-    width: 100px;
-    height: 55px;
+  width: 100px;
+  height: 55px;
 }
 
 .msg {
-    text-align: center;
-    margin: 30px 0;
+  text-align: center;
+  margin: 30px 0;
 }
 
 .counter_and_filter {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 10px;
-    width: 400px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  width: 400px;
 }
 
-@media (max-width: 580px){
-    #text_todo {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
+@media (max-width: 580px) {
+  #text_todo {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
 
-    .counter_and_filter {
-        display: flex;
-        justify-content: center;
-        flex-direction: column; 
-        
-        width: 100%
-    }
+  .counter_and_filter {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 
-    .what_todo {
-        width: 100%;
-        height: 50px;
-    }
+    width: 100%;
+  }
+
+  .what_todo {
+    width: 100%;
+    height: 50px;
+  }
 }

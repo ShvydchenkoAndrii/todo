@@ -38,6 +38,28 @@
     }
   }
 
+  active.addEventListener("click", () => {
+    // поки не працює правильно каунтер
+    // let count2 = 0
+    // const txtHide = document.querySelectorAll(".txt.active")
+    // for (let t of txtHide){
+    //     if ( t === document.querySelector(".txt.active")){
+    //         count2++
+    //     }
+    // }
+    // count -= count2;
+    // document.getElementById("counter").innerHTML = count;
+    const txt = document.querySelectorAll(".txt.active");
+    for (let elem of txt) {
+      let allCards = document.querySelectorAll(".todo_item");
+      for (let el of allCards) {
+        if (elem === el.querySelector(".txt.active")) {
+          el.classList.add("hide");
+        }
+      }
+    }
+  });
+
   clear.addEventListener("click", () => {
     const allCards = document.querySelectorAll(".todo_item");
     for (let card of allCards) {
@@ -47,20 +69,12 @@
     document.getElementById("counter").innerHTML = count;
   });
 
-  active.addEventListener("click", () => {
-    const allCards = document.querySelector(".todo_item");
-    let elem = document.querySelector(".txt");
-    if (elem === document.querySelector(".txt.active")) {
-      allCards.classList.add("hide");
-    }
-  });
-
-  all.addEventListener("click", () => {
-    const allCards = document.querySelector(".todo_item");
-    if (allCards === document.querySelector(".todo_item.hide")) {
-      allCards.classList.remove("hide");
-    }
-  });
+  //   all.addEventListener("click", () => {
+  //     const allCards = document.querySelector(".todo_item");
+  //     if (allCards === document.querySelector(".todo_item.hide")) {
+  //       allCards.classList.remove("hide");
+  //     }
+  //   });
 
   addButt.addEventListener("click", createNewToDo);
   txtInput.addEventListener("keypress", (e) => {

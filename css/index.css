@@ -41,6 +41,10 @@ button {
   padding: 10px;
 }
 
+.todo_item.hide {
+    display: none;
+}
+
 .txt.active {
   text-decoration: line-through;
   opacity: 0.6;

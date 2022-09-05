@@ -2,7 +2,10 @@
   const cards = document.getElementById("todo_items_list");
   const addButt = document.querySelector(".add_todo");
   const txtInput = document.querySelector(".what_todo");
-
+  const all = document.querySelector("all_todo_items");
+  const active = document.querySelector(".active_todo_items");
+  const completed = document.querySelector(".completed_todo_items");
+  const clear = document.querySelector(".clear_todo_items");
   let count = 0;
 
   function createNewToDo() {
@@ -34,7 +37,6 @@
       });
     }
   }
-  const clear = document.querySelector(".clear_todo_items");
 
   clear.addEventListener("click", () => {
     const allCards = document.querySelectorAll(".todo_item");
@@ -43,6 +45,21 @@
     }
     count = 0;
     document.getElementById("counter").innerHTML = count;
+  });
+
+  active.addEventListener("click", () => {
+    const allCards = document.querySelector(".todo_item");
+    let elem = document.querySelector(".txt");
+    if (elem === document.querySelector(".txt.active")) {
+      allCards.classList.add("hide");
+    }
+  });
+
+  all.addEventListener("click", () => {
+    const allCards = document.querySelector(".todo_item");
+    if (allCards === document.querySelector(".todo_item.hide")) {
+      allCards.classList.remove("hide");
+    }
   });
 
   addButt.addEventListener("click", createNewToDo);

@@ -2,7 +2,7 @@
   const cards = document.getElementById("todo_items_list");
   const addButt = document.querySelector(".add_todo");
   const txtInput = document.querySelector(".what_todo");
-  const all = document.querySelector("all_todo_items");
+  const all = document.querySelector(".all_todo_items");
   const active = document.querySelector(".active_todo_items");
   const completed = document.querySelector(".completed_todo_items");
   const clear = document.querySelector(".clear_todo_items");
@@ -39,16 +39,6 @@
   }
 
   active.addEventListener("click", () => {
-    // поки не працює правильно каунтер
-    // let count2 = 0
-    // const txtHide = document.querySelectorAll(".txt.active")
-    // for (let t of txtHide){
-    //     if ( t === document.querySelector(".txt.active")){
-    //         count2++
-    //     }
-    // }
-    // count -= count2;
-    // document.getElementById("counter").innerHTML = count;
     const txt = document.querySelectorAll(".txt.active");
     for (let elem of txt) {
       let allCards = document.querySelectorAll(".todo_item");
@@ -60,6 +50,18 @@
     }
   });
 
+  //   completed.addEventListener("click", () => {
+  //     const txt = document.querySelectorAll(".txt");
+  //     for (let elem of txt) {
+  //       let allCards = document.querySelectorAll(".todo_item");
+  //       for (let el of allCards) {
+  //         if (elem === el.querySelector(".txt.active")) {
+  //           el.classList.toggle("hide");
+  //         }
+  //       }
+  //     }
+  //   });
+
   clear.addEventListener("click", () => {
     const allCards = document.querySelectorAll(".todo_item");
     for (let card of allCards) {
@@ -69,12 +71,14 @@
     document.getElementById("counter").innerHTML = count;
   });
 
-  //   all.addEventListener("click", () => {
-  //     const allCards = document.querySelector(".todo_item");
-  //     if (allCards === document.querySelector(".todo_item.hide")) {
-  //       allCards.classList.remove("hide");
-  //     }
-  //   });
+  all.addEventListener("click", () => {
+    const allCards = document.querySelectorAll(".todo_item");
+    for (let card of allCards) {
+      if (card === document.querySelector(".todo_item.hide")) {
+        card.classList.remove("hide");
+      }
+    }
+  });
 
   addButt.addEventListener("click", createNewToDo);
   txtInput.addEventListener("keypress", (e) => {

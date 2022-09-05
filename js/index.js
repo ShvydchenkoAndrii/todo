@@ -24,17 +24,14 @@
                 const name2 = newElement.closest("div").querySelector(".txt");
                 name2.classList.toggle("active");
             });
-            const button = document.querySelectorAll(".butt1");
+            newElement.addEventListener("click", () => {
+                count--;
+                document.getElementById('counter').innerHTML = count;
+                let all = newElement.closest(".todo_item");
+                all.remove();
 
-            for (let element of button) {
-                element.addEventListener("click", () => {
-                    count--;
-                    document.getElementById('counter').innerHTML = count;
-                    let all = element.closest(".todo_item");
-                    all.remove();
+            });
 
-                });
-            }
         }
     }
 

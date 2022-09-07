@@ -44,7 +44,9 @@
       let txt = elem.querySelector(".txt");
       if (txt === elem.querySelector(".txt.active")) {
         elem.classList.add("hide");
-      }
+      } if (txt !== elem.querySelector(".txt.active")) {
+        elem.classList.remove("hide");
+      } 
     }
   });
 
@@ -54,7 +56,9 @@
       let txt = elem.querySelector(".txt");
       if (txt !== elem.querySelector(".txt.active")) {
         elem.classList.add("hide");
-      }
+      } if (txt === elem.querySelector(".txt.active")) {
+        elem.classList.remove("hide");
+      } 
     }
   });
 

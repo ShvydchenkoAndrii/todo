@@ -39,28 +39,24 @@
   }
 
   active.addEventListener("click", () => {
-    const txt = document.querySelectorAll(".txt.active");
-    for (let elem of txt) {
-      let allCards = document.querySelectorAll(".todo_item");
-      for (let el of allCards) {
-        if (elem === el.querySelector(".txt.active")) {
-          el.classList.add("hide");
-        }
+    const allCards = document.querySelectorAll(".todo_item");
+    for (let elem of allCards) {
+      let txt = elem.querySelector(".txt");
+      if (txt === elem.querySelector(".txt.active")) {
+        elem.classList.add("hide");
       }
     }
   });
 
-  //   completed.addEventListener("click", () => {
-  //     const txt = document.querySelectorAll(".txt");
-  //     for (let elem of txt) {
-  //       let allCards = document.querySelectorAll(".todo_item");
-  //       for (let el of allCards) {
-  //         if (elem === el.querySelector(".txt.active")) {
-  //           el.classList.toggle("hide");
-  //         }
-  //       }
-  //     }
-  //   });
+  completed.addEventListener("click", () => {
+    const allCards = document.querySelectorAll(".todo_item");
+    for (let elem of allCards) {
+      let txt = elem.querySelector(".txt");
+      if (txt !== elem.querySelector(".txt.active")) {
+        elem.classList.add("hide");
+      }
+    }
+  });
 
   clear.addEventListener("click", () => {
     const allCards = document.querySelectorAll(".todo_item");

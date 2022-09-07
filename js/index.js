@@ -26,14 +26,20 @@
       newElement.addEventListener("change", () => {
         const name2 = newElement.closest("div").querySelector(".txt");
         name2.classList.toggle("active");
+        if (all.classList.contains("checked")) {
+          if (!name2.classList.contains("active")) {
+            count++;
+            document.getElementById("counter").innerHTML = count;
+          } if (name2.classList.contains("active")) {count--;
+          document.getElementById("counter").innerHTML = count;
+        }
+      }
         if (active.classList.contains("checked")) {
           newElement.classList.add("hide");
           count--;
           document.getElementById("counter").innerHTML = count;
         }
-        if (
-          completed.classList.contains("checked")
-        ) {
+        if (completed.classList.contains("checked")) {
           newElement.classList.add("hide");
           count++;
           document.getElementById("counter").innerHTML = count;

@@ -26,17 +26,25 @@
       newElement.addEventListener("change", () => {
         const name2 = newElement.closest("div").querySelector(".txt");
         name2.classList.toggle("active");
+        count--;
+        document.getElementById("counter").innerHTML = count;
       });
 
       const button = newElement.querySelector(".butt1");
       button.addEventListener("click", () => {
         count--;
         document.getElementById("counter").innerHTML = count;
-
         newElement.remove();
       });
     }
   }
+
+  addButt.addEventListener("click", createNewToDo);
+  txtInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      createNewToDo();
+    }
+  });
 
   all.addEventListener("click", () => {
     all.classList.add("checked");
@@ -92,12 +100,5 @@
     }
     count = 0;
     document.getElementById("counter").innerHTML = count;
-  });
-
-  addButt.addEventListener("click", createNewToDo);
-  txtInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      createNewToDo();
-    }
   });
 })();

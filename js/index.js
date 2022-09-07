@@ -28,6 +28,9 @@
         name2.classList.toggle("active");
         count--;
         document.getElementById("counter").innerHTML = count;
+        if (active === document.querySelector(".active_todo_items.checked")){
+          newElement.classList.add('hide')
+        }
       });
 
       const button = newElement.querySelector(".butt1");
@@ -92,7 +95,7 @@
 
   clear.addEventListener("click", () => {
     active.classList.remove("checked");
-    all.classList.remove("checked");
+    all.classList.add("checked");
     completed.classList.remove("checked");
     const allCards = document.querySelectorAll(".todo_item");
     for (let card of allCards) {

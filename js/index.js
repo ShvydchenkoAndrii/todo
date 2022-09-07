@@ -30,10 +30,12 @@
           if (!name2.classList.contains("active")) {
             count++;
             document.getElementById("counter").innerHTML = count;
-          } if (name2.classList.contains("active")) {count--;
-          document.getElementById("counter").innerHTML = count;
+          }
+          if (name2.classList.contains("active")) {
+            count--;
+            document.getElementById("counter").innerHTML = count;
+          }
         }
-      }
         if (active.classList.contains("checked")) {
           newElement.classList.add("hide");
           count--;
@@ -68,7 +70,7 @@
     completed.classList.remove("checked");
     const allCards = document.querySelectorAll(".todo_item");
     for (let card of allCards) {
-      if (card === document.querySelector(".todo_item.hide")) {
+      if (card.classList.contains("hide")) {
         card.classList.remove("hide");
       }
     }
@@ -80,7 +82,7 @@
     completed.classList.remove("checked");
     const allCards = document.querySelectorAll(".todo_item");
     for (let elem of allCards) {
-      let txt = elem.closest("div").querySelector(".txt");
+      let txt = elem.querySelector(".txt");
       if (txt.classList.contains("active")) {
         elem.classList.add("hide");
       }
@@ -96,7 +98,7 @@
     completed.classList.add("checked");
     const allCards = document.querySelectorAll(".todo_item");
     for (let elem of allCards) {
-      let txt = elem.closest("div").querySelector(".txt");
+      let txt = elem.querySelector(".txt");
       if (!txt.classList.contains("active")) {
         elem.classList.add("hide");
       }

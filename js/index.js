@@ -38,46 +38,60 @@
     }
   }
 
-  active.addEventListener("click", () => {
-    const allCards = document.querySelectorAll(".todo_item");
-    for (let elem of allCards) {
-      let txt = elem.querySelector(".txt");
-      if (txt === elem.querySelector(".txt.active")) {
-        elem.classList.add("hide");
-      } if (txt !== elem.querySelector(".txt.active")) {
-        elem.classList.remove("hide");
-      } 
-    }
-  });
-
-  completed.addEventListener("click", () => {
-    const allCards = document.querySelectorAll(".todo_item");
-    for (let elem of allCards) {
-      let txt = elem.querySelector(".txt");
-      if (txt !== elem.querySelector(".txt.active")) {
-        elem.classList.add("hide");
-      } if (txt === elem.querySelector(".txt.active")) {
-        elem.classList.remove("hide");
-      } 
-    }
-  });
-
-  clear.addEventListener("click", () => {
-    const allCards = document.querySelectorAll(".todo_item");
-    for (let card of allCards) {
-      card.remove();
-    }
-    count = 0;
-    document.getElementById("counter").innerHTML = count;
-  });
-
   all.addEventListener("click", () => {
+    all.classList.add("checked");
+    active.classList.remove("checked");
+    completed.classList.remove("checked");
     const allCards = document.querySelectorAll(".todo_item");
     for (let card of allCards) {
       if (card === document.querySelector(".todo_item.hide")) {
         card.classList.remove("hide");
       }
     }
+  });
+
+  active.addEventListener("click", () => {
+    active.classList.add("checked");
+    all.classList.remove("checked");
+    completed.classList.remove("checked");
+    const allCards = document.querySelectorAll(".todo_item");
+    for (let elem of allCards) {
+      let txt = elem.querySelector(".txt");
+      if (txt === elem.querySelector(".txt.active")) {
+        elem.classList.add("hide");
+      }
+      if (txt !== elem.querySelector(".txt.active")) {
+        elem.classList.remove("hide");
+      }
+    }
+  });
+
+  completed.addEventListener("click", () => {
+    active.classList.remove("checked");
+    all.classList.remove("checked");
+    completed.classList.add("checked");
+    const allCards = document.querySelectorAll(".todo_item");
+    for (let elem of allCards) {
+      let txt = elem.querySelector(".txt");
+      if (txt !== elem.querySelector(".txt.active")) {
+        elem.classList.add("hide");
+      }
+      if (txt === elem.querySelector(".txt.active")) {
+        elem.classList.remove("hide");
+      }
+    }
+  });
+
+  clear.addEventListener("click", () => {
+    active.classList.remove("checked");
+    all.classList.remove("checked");
+    completed.classList.remove("checked");
+    const allCards = document.querySelectorAll(".todo_item");
+    for (let card of allCards) {
+      card.remove();
+    }
+    count = 0;
+    document.getElementById("counter").innerHTML = count;
   });
 
   addButt.addEventListener("click", createNewToDo);

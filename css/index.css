@@ -106,3 +106,18 @@ button {
     height: 50px;
   }
 }
+
+.all_todo_items.checked {
+  background-color: black;
+  color: white;
+}
+
+.active_todo_items.checked {
+  background-color: black;
+  color: white;
+}
+
+.completed_todo_items.checked {
+  background-color: black;
+  color: white;
+}

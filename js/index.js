@@ -54,13 +54,15 @@
         if (name.classList.contains("active")) {
           newElement.remove();
         }
+        if (!name.classList.contains("active")) {
         count--;
         document.getElementById("counter").innerHTML = count;
         newElement.remove();
+        }
       });
     }
   }
-
+  
   addButt.addEventListener("click", createNewToDo);
   txtInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {

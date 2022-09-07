@@ -26,10 +26,10 @@
       newElement.addEventListener("change", () => {
         const name2 = newElement.closest("div").querySelector(".txt");
         name2.classList.toggle("active");
-        count--;
-        document.getElementById("counter").innerHTML = count;
         if (active === document.querySelector(".active_todo_items.checked")){
           newElement.classList.add('hide')
+          count--;
+        document.getElementById("counter").innerHTML = count;
         }
       });
 

@@ -26,13 +26,13 @@
       newElement.addEventListener("change", () => {
         const name2 = newElement.closest("div").querySelector(".txt");
         name2.classList.toggle("active");
-        if (active === document.querySelector(".active_todo_items.checked")) {
+        if (active.classList.contains("checked")) {
           newElement.classList.add("hide");
           count--;
           document.getElementById("counter").innerHTML = count;
         }
         if (
-          completed === document.querySelector(".completed_todo_items.checked")
+          completed.classList.contains("checked")
         ) {
           newElement.classList.add("hide");
           count++;
@@ -74,11 +74,11 @@
     completed.classList.remove("checked");
     const allCards = document.querySelectorAll(".todo_item");
     for (let elem of allCards) {
-      let txt = elem.querySelector(".txt");
-      if (txt === elem.querySelector(".txt.active")) {
+      let txt = elem.closest("div").querySelector(".txt");
+      if (txt.classList.contains("active")) {
         elem.classList.add("hide");
       }
-      if (txt !== elem.querySelector(".txt.active")) {
+      if (!txt.classList.contains("active")) {
         elem.classList.remove("hide");
       }
     }
@@ -90,11 +90,11 @@
     completed.classList.add("checked");
     const allCards = document.querySelectorAll(".todo_item");
     for (let elem of allCards) {
-      let txt = elem.querySelector(".txt");
-      if (txt !== elem.querySelector(".txt.active")) {
+      let txt = elem.closest("div").querySelector(".txt");
+      if (!txt.classList.contains("active")) {
         elem.classList.add("hide");
       }
-      if (txt === elem.querySelector(".txt.active")) {
+      if (txt.classList.contains("active")) {
         elem.classList.remove("hide");
       }
     }

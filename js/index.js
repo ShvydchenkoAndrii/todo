@@ -50,6 +50,10 @@
 
       const button = newElement.querySelector(".butt1");
       button.addEventListener("click", () => {
+        let name = newElement.querySelector(".txt");
+        if (name.classList.contains("active")) {
+          newElement.remove();
+        }
         count--;
         document.getElementById("counter").innerHTML = count;
         newElement.remove();

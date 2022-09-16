@@ -1,24 +1,30 @@
 (function () {
-  const cards = document.getElementById("todo_items_list");
+  let cards = document.getElementById("todo_items_list");
   const addButt = document.querySelector(".add_todo");
   const txtInput = document.querySelector(".what_todo");
   const all = document.querySelector(".all_todo_items");
   const active = document.querySelector(".active_todo_items");
   const completed = document.querySelector(".completed_todo_items");
   const clear = document.querySelector(".clear_todo_items");
+  let newArr = [];
+  let newCounter = 0;
   let count = 0;
 
   function createNewToDo() {
     let input = document.getElementById("myInput").value;
     if (input !== "") {
       document.getElementById("myInput").value = "";
+
       let newElement = document.createElement("div");
+      newArr.push(newElement);
+      localStorage.setItem("card", JSON.stringify(newArr));
       newElement.setAttribute("class", "todo_item");
       newElement.innerHTML = `
                             <input type="checkbox" class="checkbox">
                             <h2 class="txt">${input}</h2>
                             <button class="butt1" id="butt">delete</button>
                      `;
+
       cards.appendChild(newElement);
       document.getElementById("todo_items_list").appendChild(newElement);
       count++;
@@ -55,14 +61,15 @@
           newElement.remove();
         }
         if (!name.classList.contains("active")) {
-        count--;
-        document.getElementById("counter").innerHTML = count;
-        newElement.remove();
+          count--;
+          document.getElementById("counter").innerHTML = count;
+          newElement.remove();
         }
       });
     }
+    
   }
-  
+// newArr = localStorage.getItem("card");
   addButt.addEventListener("click", createNewToDo);
   txtInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
@@ -124,5 +131,13 @@
     }
     count = 0;
     document.getElementById("counter").innerHTML = count;
+    localStorage.clear();
   });
+  window.addEventListener("load", () => {
+    newCounter++;
+    document.getElementById("new_counter").innerHTML = newCounter;
+    localStorage.setItem("new_counter", newCounter);
+  });
+  newCounter = localStorage.getItem("new_counter");
+ 
 })();

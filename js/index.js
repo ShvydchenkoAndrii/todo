@@ -7,25 +7,19 @@
   const completed = document.querySelector(".completed_todo_items");
   const clear = document.querySelector(".clear_todo_items");
   let newArr = [];
-  let newCounter = 0;
+  // let newCounter = 0;
   let count = 0;
 
   function createNewToDo() {
     let input = document.getElementById("myInput").value;
+
     if (input !== "") {
       document.getElementById("myInput").value = "";
-
       let newElement = document.createElement("div");
-      newArr.push(newElement);
-      localStorage.setItem("card", JSON.stringify(newArr));
-      newElement.setAttribute("class", "todo_item");
-      newElement.innerHTML = `
-                            <input type="checkbox" class="checkbox">
-                            <h2 class="txt">${input}</h2>
-                            <button class="butt1" id="butt">delete</button>
-                     `;
-
+      // newElement.setAttribute("class", "todo_item");
+      newElement.innerHTML = `<div class='todo_item'><input type='checkbox' class='checkbox'><h2 class='txt'>${input}</h2><button class='butt1' id='butt'>delete</button></div>`;
       cards.appendChild(newElement);
+      newArr.push(newElement.innerHTML);
       document.getElementById("todo_items_list").appendChild(newElement);
       count++;
       document.getElementById("counter").innerHTML = count;
@@ -67,9 +61,9 @@
         }
       });
     }
-    
+    localStorage.setItem("newArr", JSON.stringify(newArr));
   }
-// newArr = localStorage.getItem("card");
+
   addButt.addEventListener("click", createNewToDo);
   txtInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
@@ -132,12 +126,19 @@
     count = 0;
     document.getElementById("counter").innerHTML = count;
     localStorage.clear();
+    newArr = [];
   });
+
   window.addEventListener("load", () => {
-    newCounter++;
-    document.getElementById("new_counter").innerHTML = newCounter;
-    localStorage.setItem("new_counter", newCounter);
+    for (let i = 0; i < localStorage.length; i++) {
+      let element = document.createElement("div");
+      element.innerHTML = localStorage.getItem(localStorage.key(i));
+      cards.appendChild(element);
+    }
+    //   newCounter++;
+    //   document.getElementById("new_counter").innerHTML = newCounter;
+    //   localStorage.setItem("new_counter", newCounter);
   });
-  newCounter = localStorage.getItem("new_counter");
- 
+  // newCounter = localStorage.getItem("new_counter");
+  localStorage.getItem("newArr");
 })();

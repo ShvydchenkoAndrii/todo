@@ -7,7 +7,6 @@
   const completed = document.querySelector(".completed_todo_items");
   const clear = document.querySelector(".clear_todo_items");
   let newArr = [];
-  // let newCounter = 0;
   let count = 0;
 
   function createNewToDo() {
@@ -16,8 +15,8 @@
     if (input !== "") {
       document.getElementById("myInput").value = "";
       let newElement = document.createElement("div");
-      // newElement.setAttribute("class", "todo_item");
-      newElement.innerHTML = `<div class='todo_item'><input type='checkbox' class='checkbox'><h2 class='txt'>${input}</h2><button class='butt1' id='butt'>delete</button></div>`;
+      newElement.setAttribute("class", "todo_item");
+      newElement.innerHTML = `<input type='checkbox' class='checkbox'><h2 class='txt'>${input}</h2><button class='butt1' id='butt'>delete</button>`;
       cards.appendChild(newElement);
       newArr.push(newElement.innerHTML);
       document.getElementById("todo_items_list").appendChild(newElement);
@@ -128,17 +127,53 @@
     localStorage.clear();
     newArr = [];
   });
-
+  const val = JSON.parse(localStorage.getItem("newArr"));
   window.addEventListener("load", () => {
-    for (let i = 0; i < localStorage.length; i++) {
+    for (let i = 0; i < val.length; i++) {
       let element = document.createElement("div");
-      element.innerHTML = localStorage.getItem(localStorage.key(i));
+      element.setAttribute("class", "todo_item");
+      element.innerHTML = val[i];
       cards.appendChild(element);
+      count++;
+      document.getElementById("counter").innerHTML = count;
+      element.addEventListener("change", () => {
+        const name2 = element.closest("div").querySelector(".txt");
+        name2.classList.toggle("active");
+        if (all.classList.contains("checked")) {
+          if (!name2.classList.contains("active")) {
+            count++;
+            document.getElementById("counter").innerHTML = count;
+          }
+          if (name2.classList.contains("active")) {
+            count--;
+            document.getElementById("counter").innerHTML = count;
+          }
+        }
+        if (active.classList.contains("checked")) {
+          element.classList.add("hide");
+          count--;
+          document.getElementById("counter").innerHTML = count;
+        }
+        if (completed.classList.contains("checked")) {
+          element.classList.add("hide");
+          count++;
+          document.getElementById("counter").innerHTML = count;
+        }
+      });
+
+      const button = element.querySelector(".butt1");
+      button.addEventListener("click", () => {
+        let name = element.querySelector(".txt");
+        if (name.classList.contains("active")) {
+          element.remove();
+        }
+        if (!name.classList.contains("active")) {
+          count--;
+          document.getElementById("counter").innerHTML = count;
+          element.remove();
+        }
+      });
     }
-    //   newCounter++;
-    //   document.getElementById("new_counter").innerHTML = newCounter;
-    //   localStorage.setItem("new_counter", newCounter);
   });
-  // newCounter = localStorage.getItem("new_counter");
-  localStorage.getItem("newArr");
+  JSON.parse(localStorage.getItem("newArr"));
 })();

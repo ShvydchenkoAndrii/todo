@@ -172,6 +172,7 @@
           document.getElementById("counter").innerHTML = count;
           element.remove();
         }
+        localStorage.removeItem('newArr');
       });
     }
   });

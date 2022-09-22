@@ -133,7 +133,7 @@
     }
     count = 0;
     document.getElementById("counter").innerHTML = count;
-    localStorage.removeItem("newArr");
+    localStorage.clear();
   });
 
   const val = JSON.parse(localStorage.getItem("newArr"));

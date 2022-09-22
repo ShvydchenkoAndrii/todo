@@ -22,9 +22,9 @@
       count++;
       document.getElementById("counter").innerHTML = count;
 
-      checkbox()
+      checkbox(newElement);
 
-      deleteBtn();
+      deleteBtn(newElement);
 
       localStorage.setItem("newArr", JSON.stringify(newArr));
     }
@@ -37,46 +37,46 @@
     }
   });
 
-  function deleteBtn() {
-    const button = document.querySelectorAll(".butt1");
-    for (let but of button) {
-      but.addEventListener("click", () => {
+  function deleteBtn(newElement) {
+    const button = newElement.querySelector(".butt1");
+    button.addEventListener("click", () => {
+      let name = newElement.querySelector(".txt");
+      if (name.classList.contains("active")) {
+        newElement.remove();
+      }
+      if (!name.classList.contains("active")) {
         count--;
         document.getElementById("counter").innerHTML = count;
-        const item = but.closest(".todo_item");
-        item.remove();
-      });
-    }
+        newElement.remove();
+      }
+    });
   }
 
-  function checkbox() {
-    const items = document.querySelectorAll(".todo_item");
-    for (const item of items) {
-      item.addEventListener("change", () => {
-        const name = item.querySelector(".txt");
-        name.classList.toggle("active");
-        if (all.classList.contains("checked")) {
-          if (!name.classList.contains("active")) {
-            count++;
-            document.getElementById("counter").innerHTML = count;
-          }
-          if (name.classList.contains("active")) {
-            count--;
-            document.getElementById("counter").innerHTML = count;
-          }
-        }
-        if (active.classList.contains("checked")) {
-          item.classList.add("hide");
-          count--;
-          document.getElementById("counter").innerHTML = count;
-        }
-        if (completed.classList.contains("checked")) {
-          item.classList.add("hide");
+  function checkbox(newElement) {
+    newElement.addEventListener("change", () => {
+      const name2 = newElement.closest("div").querySelector(".txt");
+      name2.classList.toggle("active");
+      if (all.classList.contains("checked")) {
+        if (!name2.classList.contains("active")) {
           count++;
           document.getElementById("counter").innerHTML = count;
         }
-      });
-    }
+        if (name2.classList.contains("active")) {
+          count--;
+          document.getElementById("counter").innerHTML = count;
+        }
+      }
+      if (active.classList.contains("checked")) {
+        newElement.classList.add("hide");
+        count--;
+        document.getElementById("counter").innerHTML = count;
+      }
+      if (completed.classList.contains("checked")) {
+        newElement.classList.add("hide");
+        count++;
+        document.getElementById("counter").innerHTML = count;
+      }
+    });
   }
 
   all.addEventListener("click", () => {
@@ -139,39 +139,16 @@
   const val = JSON.parse(localStorage.getItem("newArr"));
   window.addEventListener("load", () => {
     for (let i = 0; i < val.length; i++) {
-      let element = document.createElement("div");
-      element.setAttribute("class", "todo_item");
-      element.innerHTML = val[i];
-      cards.appendChild(element);
+      let newElement = document.createElement("div");
+      newElement.setAttribute("class", "todo_item");
+      newElement.innerHTML = val[i];
+      cards.appendChild(newElement);
       count++;
       document.getElementById("counter").innerHTML = count;
-      element.addEventListener("change", () => {
-        const name2 = element.closest("div").querySelector(".txt");
-        name2.classList.toggle("active");
-        if (all.classList.contains("checked")) {
-          if (!name2.classList.contains("active")) {
-            count++;
-            document.getElementById("counter").innerHTML = count;
-          }
-          if (name2.classList.contains("active")) {
-            count--;
-            document.getElementById("counter").innerHTML = count;
-          }
-        }
-        if (active.classList.contains("checked")) {
-          element.classList.add("hide");
-          count--;
-          document.getElementById("counter").innerHTML = count;
-        }
-        if (completed.classList.contains("checked")) {
-          element.classList.add("hide");
-          count++;
-          document.getElementById("counter").innerHTML = count;
-        }
-      });
+      newArr.push(val[i])
+      checkbox(newElement);
 
-      deleteBtn();
+      deleteBtn(newElement);
     }
   });
-  
 })();

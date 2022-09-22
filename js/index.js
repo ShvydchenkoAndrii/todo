@@ -1,17 +1,16 @@
 (function () {
-  let cards = document.getElementById("todo_items_list");
+  const cards = document.getElementById("todo_items_list");
   const addButt = document.querySelector(".add_todo");
   const txtInput = document.querySelector(".what_todo");
   const all = document.querySelector(".all_todo_items");
   const active = document.querySelector(".active_todo_items");
   const completed = document.querySelector(".completed_todo_items");
   const clear = document.querySelector(".clear_todo_items");
-  let newArr = [];
+  const newArr = [];
   let count = 0;
 
   function createNewToDo() {
     let input = document.getElementById("myInput").value;
-
     if (input !== "") {
       document.getElementById("myInput").value = "";
       let newElement = document.createElement("div");
@@ -22,45 +21,13 @@
       document.getElementById("todo_items_list").appendChild(newElement);
       count++;
       document.getElementById("counter").innerHTML = count;
-      newElement.addEventListener("change", () => {
-        const name2 = newElement.closest("div").querySelector(".txt");
-        name2.classList.toggle("active");
-        if (all.classList.contains("checked")) {
-          if (!name2.classList.contains("active")) {
-            count++;
-            document.getElementById("counter").innerHTML = count;
-          }
-          if (name2.classList.contains("active")) {
-            count--;
-            document.getElementById("counter").innerHTML = count;
-          }
-        }
-        if (active.classList.contains("checked")) {
-          newElement.classList.add("hide");
-          count--;
-          document.getElementById("counter").innerHTML = count;
-        }
-        if (completed.classList.contains("checked")) {
-          newElement.classList.add("hide");
-          count++;
-          document.getElementById("counter").innerHTML = count;
-        }
-      });
 
-      const button = newElement.querySelector(".butt1");
-      button.addEventListener("click", () => {
-        let name = newElement.querySelector(".txt");
-        if (name.classList.contains("active")) {
-          newElement.remove();
-        }
-        if (!name.classList.contains("active")) {
-          count--;
-          document.getElementById("counter").innerHTML = count;
-          newElement.remove();
-        }
-      });
+      checkbox()
+
+      deleteBtn();
+
+      localStorage.setItem("newArr", JSON.stringify(newArr));
     }
-    localStorage.setItem("newArr", JSON.stringify(newArr));
   }
 
   addButt.addEventListener("click", createNewToDo);
@@ -69,6 +36,48 @@
       createNewToDo();
     }
   });
+
+  function deleteBtn() {
+    const button = document.querySelectorAll(".butt1");
+    for (let but of button) {
+      but.addEventListener("click", () => {
+        count--;
+        document.getElementById("counter").innerHTML = count;
+        const item = but.closest(".todo_item");
+        item.remove();
+      });
+    }
+  }
+
+  function checkbox() {
+    const items = document.querySelectorAll(".todo_item");
+    for (const item of items) {
+      item.addEventListener("change", () => {
+        const name = item.querySelector(".txt");
+        name.classList.toggle("active");
+        if (all.classList.contains("checked")) {
+          if (!name.classList.contains("active")) {
+            count++;
+            document.getElementById("counter").innerHTML = count;
+          }
+          if (name.classList.contains("active")) {
+            count--;
+            document.getElementById("counter").innerHTML = count;
+          }
+        }
+        if (active.classList.contains("checked")) {
+          item.classList.add("hide");
+          count--;
+          document.getElementById("counter").innerHTML = count;
+        }
+        if (completed.classList.contains("checked")) {
+          item.classList.add("hide");
+          count++;
+          document.getElementById("counter").innerHTML = count;
+        }
+      });
+    }
+  }
 
   all.addEventListener("click", () => {
     all.classList.add("checked");
@@ -124,9 +133,9 @@
     }
     count = 0;
     document.getElementById("counter").innerHTML = count;
-    localStorage.clear();
-    newArr = [];
+    localStorage.removeItem("newArr");
   });
+
   const val = JSON.parse(localStorage.getItem("newArr"));
   window.addEventListener("load", () => {
     for (let i = 0; i < val.length; i++) {
@@ -161,20 +170,8 @@
         }
       });
 
-      const button = element.querySelector(".butt1");
-      button.addEventListener("click", () => {
-        let name = element.querySelector(".txt");
-        if (name.classList.contains("active")) {
-          element.remove();
-        }
-        if (!name.classList.contains("active")) {
-          count--;
-          document.getElementById("counter").innerHTML = count;
-          element.remove();
-        }
-        localStorage.removeItem('newArr');
-      });
+      deleteBtn();
     }
   });
-  JSON.parse(localStorage.getItem("newArr"));
+  
 })();

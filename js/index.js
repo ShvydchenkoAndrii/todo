@@ -25,7 +25,8 @@
       checkbox(newElement);
 
       deleteBtn(newElement);
-
+      
+      
       localStorage.setItem("newArr", JSON.stringify(newArr));
     }
   }
@@ -136,19 +137,30 @@
     localStorage.clear();
   });
 
-  const val = JSON.parse(localStorage.getItem("newArr"));
+  const parseNewArr = JSON.parse(localStorage.getItem("newArr"));
   window.addEventListener("load", () => {
-    for (let i = 0; i < val.length; i++) {
+    if (parseNewArr){
+    for (let i = 0; i < parseNewArr.length; i++) {
       let newElement = document.createElement("div");
       newElement.setAttribute("class", "todo_item");
-      newElement.innerHTML = val[i];
+      newElement.innerHTML = parseNewArr[i];
       cards.appendChild(newElement);
       count++;
       document.getElementById("counter").innerHTML = count;
-      newArr.push(val[i])
+      newArr.push(parseNewArr[i]);
       checkbox(newElement);
 
       deleteBtn(newElement);
     }
+  }
   });
+
+  function itemsOnPageToLs () {
+    const items = document.querySelectorAll('todo_item');
+    for (let item of items) {
+      newArr.push(item)
+      localStorage.setItem('newArr', newArr)
+    }
+  }
+
 })();

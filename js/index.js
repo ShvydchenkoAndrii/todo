@@ -17,7 +17,6 @@
       newElement.setAttribute("class", "todo_item");
       newElement.innerHTML = `<input type='checkbox' class='checkbox'><h2 class='txt'>${input}</h2><button class='butt1' id='butt'>delete</button>`;
       cards.appendChild(newElement);
-      newArr.push(newElement.innerHTML);
       document.getElementById("todo_items_list").appendChild(newElement);
       count++;
       document.getElementById("counter").innerHTML = count;
@@ -25,9 +24,6 @@
       checkbox(newElement);
 
       deleteBtn(newElement);
-      
-      
-      localStorage.setItem("newArr", JSON.stringify(newArr));
     }
   }
 
@@ -37,6 +33,15 @@
       createNewToDo();
     }
   });
+
+  function itemsOnPageToLs() {
+    const items = document.querySelectorAll(".todo_item");
+    const newItems = [];
+    for (let item of items) {
+      newItems.push(item.innerHTML);
+    }
+    localStorage.setItem("newItems", JSON.stringify(newItems));
+  }
 
   function deleteBtn(newElement) {
     const button = newElement.querySelector(".butt1");
@@ -50,19 +55,24 @@
         document.getElementById("counter").innerHTML = count;
         newElement.remove();
       }
+      itemsOnPageToLs();
     });
+    itemsOnPageToLs();
   }
 
   function checkbox(newElement) {
     newElement.addEventListener("change", () => {
+      const input = newElement.querySelector("input");
       const name2 = newElement.closest("div").querySelector(".txt");
       name2.classList.toggle("active");
       if (all.classList.contains("checked")) {
         if (!name2.classList.contains("active")) {
           count++;
           document.getElementById("counter").innerHTML = count;
+          input.removeAttribute("checked", "");
         }
         if (name2.classList.contains("active")) {
+          input.setAttribute("checked", "");
           count--;
           document.getElementById("counter").innerHTML = count;
         }
@@ -77,6 +87,7 @@
         count++;
         document.getElementById("counter").innerHTML = count;
       }
+      itemsOnPageToLs();
     });
   }
 
@@ -137,30 +148,26 @@
     localStorage.clear();
   });
 
-  const parseNewArr = JSON.parse(localStorage.getItem("newArr"));
+  const parseNewArr = JSON.parse(localStorage.getItem("newItems"));
   window.addEventListener("load", () => {
-    if (parseNewArr){
-    for (let i = 0; i < parseNewArr.length; i++) {
-      let newElement = document.createElement("div");
-      newElement.setAttribute("class", "todo_item");
-      newElement.innerHTML = parseNewArr[i];
-      cards.appendChild(newElement);
-      count++;
-      document.getElementById("counter").innerHTML = count;
-      newArr.push(parseNewArr[i]);
-      checkbox(newElement);
+    if (parseNewArr) {
+      for (let i = 0; i < parseNewArr.length; i++) {
+        let newElement = document.createElement("div");
+        newElement.setAttribute("class", "todo_item");
+        newElement.innerHTML = parseNewArr[i];
+        cards.appendChild(newElement);
+        const name = newElement.closest("div").querySelector(".txt");
+        if (name.classList.contains("active")) {
+          count--;
+          document.getElementById("counter").innerHTML = count;
+        }
+        count++;
+        document.getElementById("counter").innerHTML = count;
 
-      deleteBtn(newElement);
+        checkbox(newElement);
+
+        deleteBtn(newElement);
+      }
     }
-  }
   });
-
-  function itemsOnPageToLs () {
-    const items = document.querySelectorAll('todo_item');
-    for (let item of items) {
-      newArr.push(item)
-      localStorage.setItem('newArr', newArr)
-    }
-  }
-
 })();

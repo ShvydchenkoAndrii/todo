@@ -65,7 +65,7 @@
       const input = newElement.querySelector("input");
       const name2 = newElement.closest("div").querySelector(".txt");
       name2.classList.toggle("active");
-      if (all.classList.contains("checked")) {
+      if (all) {
         if (!name2.classList.contains("active")) {
           count++;
           document.getElementById("counter").innerHTML = count;
@@ -79,13 +79,9 @@
       }
       if (active.classList.contains("checked")) {
         newElement.classList.add("hide");
-        count--;
-        document.getElementById("counter").innerHTML = count;
       }
       if (completed.classList.contains("checked")) {
         newElement.classList.add("hide");
-        count++;
-        document.getElementById("counter").innerHTML = count;
       }
       itemsOnPageToLs();
     });
@@ -172,6 +168,7 @@
   const parseCompleted = JSON.parse(localStorage.getItem("completed"));
   window.addEventListener("load", () => {
     
+    
     if (parseNewArr) {
       for (let i = 0; i < parseNewArr.length; i++) {
         let newElement = document.createElement("div");
@@ -179,8 +176,10 @@
         newElement.innerHTML = parseNewArr[i];
         cards.appendChild(newElement);
         const name = newElement.closest("div").querySelector(".txt");
+        
         if (parseActive) {
           active.classList.add("checked");
+          all.classList.remove('checked')
           const allCards = document.querySelectorAll(".todo_item");
           for (let elem of allCards) {
             let txt = elem.querySelector(".txt");
@@ -203,6 +202,7 @@
         }
         if (parseCompleted) {
           completed.classList.add("checked");
+          all.classList.remove('checked')
           const allCards = document.querySelectorAll(".todo_item");
           for (let elem of allCards) {
             let txt = elem.querySelector(".txt");
@@ -214,6 +214,7 @@
             }
           }
         }
+
         if (name.classList.contains("active")) {
           count--;
           document.getElementById("counter").innerHTML = count;

@@ -9,6 +9,47 @@
   const newObj = {};
   let count = 0;
 
+  addButt.addEventListener("click", createNewToDo);
+  txtInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      createNewToDo();
+    }
+  });
+
+  all.addEventListener("click", () => {
+    all.classList.add("checked");
+    active.classList.remove("checked");
+    completed.classList.remove("checked");
+    allNeeds();
+  });
+
+  active.addEventListener("click", () => {
+    active.classList.add("checked");
+    all.classList.remove("checked");
+    completed.classList.remove("checked");
+    activeNeed();
+  });
+
+  completed.addEventListener("click", () => {
+    active.classList.remove("checked");
+    all.classList.remove("checked");
+    completed.classList.add("checked");
+    completedNeed();
+  });
+
+  clear.addEventListener("click", () => {
+    active.classList.remove("checked");
+    all.classList.add("checked");
+    completed.classList.remove("checked");
+    const allCards = document.querySelectorAll(".todo_item");
+    for (let card of allCards) {
+      card.remove();
+    }
+    count = 0;
+    document.getElementById("counter").innerHTML = count;
+    localStorage.clear();
+  });
+
   function createNewToDo() {
     let input = document.getElementById("myInput").value;
     if (input !== "") {
@@ -26,13 +67,6 @@
       deleteBtn(newElement);
     }
   }
-
-  addButt.addEventListener("click", createNewToDo);
-  txtInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      createNewToDo();
-    }
-  });
 
   function itemsOnPageToLs() {
     const items = document.querySelectorAll(".todo_item");
@@ -87,10 +121,7 @@
     });
   }
 
-  all.addEventListener("click", () => {
-    all.classList.add("checked");
-    active.classList.remove("checked");
-    completed.classList.remove("checked");
+  function allNeeds() {
     const allCards = document.querySelectorAll(".todo_item");
     for (let card of allCards) {
       if (card.classList.contains("hide")) {
@@ -103,12 +134,9 @@
     localStorage.removeItem("active");
     localStorage.removeItem("completed");
     localStorage.setItem("all", JSON.stringify(allStore));
-  });
+  }
 
-  active.addEventListener("click", () => {
-    active.classList.add("checked");
-    all.classList.remove("checked");
-    completed.classList.remove("checked");
+  function activeNeed() {
     const allCards = document.querySelectorAll(".todo_item");
     for (let elem of allCards) {
       let txt = elem.querySelector(".txt");
@@ -125,12 +153,9 @@
     localStorage.removeItem("all");
     localStorage.removeItem("completed");
     localStorage.setItem("active", JSON.stringify(activeStore));
-  });
+  }
 
-  completed.addEventListener("click", () => {
-    active.classList.remove("checked");
-    all.classList.remove("checked");
-    completed.classList.add("checked");
+  function completedNeed() {
     const allCards = document.querySelectorAll(".todo_item");
     for (let elem of allCards) {
       let txt = elem.querySelector(".txt");
@@ -147,28 +172,13 @@
     localStorage.removeItem("all");
     localStorage.removeItem("active");
     localStorage.setItem("completed", JSON.stringify(completedStore));
-  });
-
-  clear.addEventListener("click", () => {
-    active.classList.remove("checked");
-    all.classList.remove("checked");
-    completed.classList.remove("checked");
-    const allCards = document.querySelectorAll(".todo_item");
-    for (let card of allCards) {
-      card.remove();
-    }
-    count = 0;
-    document.getElementById("counter").innerHTML = count;
-    localStorage.clear();
-  });
+  }
 
   const parseNewArr = JSON.parse(localStorage.getItem("newItems"));
   const parseActive = JSON.parse(localStorage.getItem("active"));
   const parseAll = JSON.parse(localStorage.getItem("all"));
   const parseCompleted = JSON.parse(localStorage.getItem("completed"));
   window.addEventListener("load", () => {
-    
-    
     if (parseNewArr) {
       for (let i = 0; i < parseNewArr.length; i++) {
         let newElement = document.createElement("div");
@@ -176,43 +186,20 @@
         newElement.innerHTML = parseNewArr[i];
         cards.appendChild(newElement);
         const name = newElement.closest("div").querySelector(".txt");
-        
+
         if (parseActive) {
           active.classList.add("checked");
-          all.classList.remove('checked')
-          const allCards = document.querySelectorAll(".todo_item");
-          for (let elem of allCards) {
-            let txt = elem.querySelector(".txt");
-            if (txt.classList.contains("active")) {
-              elem.classList.add("hide");
-            }
-            if (!txt.classList.contains("active")) {
-              elem.classList.remove("hide");
-            }
-          }
+          all.classList.remove("checked");
+          activeNeed();
         }
         if (parseAll) {
           all.classList.add("checked");
-          const allCards = document.querySelectorAll(".todo_item");
-          for (let card of allCards) {
-            if (card.classList.contains("hide")) {
-              card.classList.remove("hide");
-            }
-          }
+          allNeeds();
         }
         if (parseCompleted) {
           completed.classList.add("checked");
-          all.classList.remove('checked')
-          const allCards = document.querySelectorAll(".todo_item");
-          for (let elem of allCards) {
-            let txt = elem.querySelector(".txt");
-            if (!txt.classList.contains("active")) {
-              elem.classList.add("hide");
-            }
-            if (txt.classList.contains("active")) {
-              elem.classList.remove("hide");
-            }
-          }
+          all.classList.remove("checked");
+          completedNeed();
         }
 
         if (name.classList.contains("active")) {

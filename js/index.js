@@ -121,7 +121,7 @@
     });
   }
 
-  function allNeeds() {
+  function showAll() {
     const allCards = document.querySelectorAll(".todo_item");
     for (let card of allCards) {
       if (card.classList.contains("hide")) {
@@ -129,14 +129,12 @@
       }
     }
     const allClass = all.classList;
-    const allStore = [];
-    allStore.push(allClass);
     localStorage.removeItem("active");
     localStorage.removeItem("completed");
-    localStorage.setItem("all", JSON.stringify(allStore));
+    localStorage.setItem("all", JSON.stringify(allClass));
   }
 
-  function activeNeed() {
+  function showActive() {
     const allCards = document.querySelectorAll(".todo_item");
     for (let elem of allCards) {
       let txt = elem.querySelector(".txt");
@@ -148,14 +146,12 @@
       }
     }
     const activeClass = active.classList;
-    const activeStore = [];
-    activeStore.push(activeClass);
     localStorage.removeItem("all");
     localStorage.removeItem("completed");
-    localStorage.setItem("active", JSON.stringify(activeStore));
+    localStorage.setItem("active", JSON.stringify(activeClass));
   }
 
-  function completedNeed() {
+  function showCompleted() {
     const allCards = document.querySelectorAll(".todo_item");
     for (let elem of allCards) {
       let txt = elem.querySelector(".txt");
@@ -167,11 +163,26 @@
       }
     }
     const completedClass = completed.classList;
-    const completedStore = [];
-    completedStore.push(completedClass);
     localStorage.removeItem("all");
     localStorage.removeItem("active");
-    localStorage.setItem("completed", JSON.stringify(completedStore));
+    localStorage.setItem("completed", JSON.stringify(completedClass));
+  }
+
+  function rememberFilter() {
+    if (parseActive) {
+      active.classList.add("checked");
+      all.classList.remove("checked");
+      showActive();
+    }
+    if (parseAll) {
+      all.classList.add("checked");
+      showAll();
+    }
+    if (parseCompleted) {
+      completed.classList.add("checked");
+      all.classList.remove("checked");
+      showCompleted();
+    }
   }
 
   const parseNewArr = JSON.parse(localStorage.getItem("newItems"));
@@ -179,6 +190,7 @@
   const parseAll = JSON.parse(localStorage.getItem("all"));
   const parseCompleted = JSON.parse(localStorage.getItem("completed"));
   window.addEventListener("load", () => {
+    rememberFilter();
     if (parseNewArr) {
       for (let i = 0; i < parseNewArr.length; i++) {
         let newElement = document.createElement("div");
@@ -187,20 +199,7 @@
         cards.appendChild(newElement);
         const name = newElement.closest("div").querySelector(".txt");
 
-        if (parseActive) {
-          active.classList.add("checked");
-          all.classList.remove("checked");
-          activeNeed();
-        }
-        if (parseAll) {
-          all.classList.add("checked");
-          allNeeds();
-        }
-        if (parseCompleted) {
-          completed.classList.add("checked");
-          all.classList.remove("checked");
-          completedNeed();
-        }
+        rememberFilter();
 
         if (name.classList.contains("active")) {
           count--;

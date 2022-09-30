@@ -20,21 +20,21 @@
     all.classList.add("checked");
     active.classList.remove("checked");
     completed.classList.remove("checked");
-    allNeeds();
+    showAll();
   });
 
   active.addEventListener("click", () => {
     active.classList.add("checked");
     all.classList.remove("checked");
     completed.classList.remove("checked");
-    activeNeed();
+    showActive();
   });
 
   completed.addEventListener("click", () => {
     active.classList.remove("checked");
     all.classList.remove("checked");
     completed.classList.add("checked");
-    completedNeed();
+    showCompleted();
   });
 
   clear.addEventListener("click", () => {
@@ -59,8 +59,8 @@
       newElement.innerHTML = `<input type='checkbox' class='checkbox'><h2 class='txt'>${input}</h2><button class='butt1' id='butt'>delete</button>`;
       cards.appendChild(newElement);
       document.getElementById("todo_items_list").appendChild(newElement);
-      count++;
-      document.getElementById("counter").innerHTML = count;
+
+      counterPlus();
 
       checkbox(newElement);
 
@@ -85,8 +85,8 @@
         newElement.remove();
       }
       if (!name.classList.contains("active")) {
-        count--;
-        document.getElementById("counter").innerHTML = count;
+        counterMinus();
+
         newElement.remove();
       }
       itemsOnPageToLs();
@@ -97,18 +97,18 @@
   function checkbox(newElement) {
     newElement.addEventListener("change", () => {
       const input = newElement.querySelector("input");
-      const name2 = newElement.closest("div").querySelector(".txt");
-      name2.classList.toggle("active");
+      const name = newElement.closest("div").querySelector(".txt");
+      name.classList.toggle("active");
       if (all) {
-        if (!name2.classList.contains("active")) {
-          count++;
-          document.getElementById("counter").innerHTML = count;
+        if (!name.classList.contains("active")) {
+          counterPlus();
+
           input.removeAttribute("checked", "");
         }
-        if (name2.classList.contains("active")) {
+        if (name.classList.contains("active")) {
           input.setAttribute("checked", "");
-          count--;
-          document.getElementById("counter").innerHTML = count;
+
+          counterMinus();
         }
       }
       if (active.classList.contains("checked")) {
@@ -119,6 +119,16 @@
       }
       itemsOnPageToLs();
     });
+  }
+
+  function counterPlus() {
+    count++;
+    document.getElementById("counter").innerHTML = count;
+  }
+
+  function counterMinus() {
+    count--;
+    document.getElementById("counter").innerHTML = count;
   }
 
   function showAll() {
@@ -197,16 +207,14 @@
         newElement.setAttribute("class", "todo_item");
         newElement.innerHTML = parseNewArr[i];
         cards.appendChild(newElement);
-        const name = newElement.closest("div").querySelector(".txt");
 
         rememberFilter();
 
+        const name = newElement.closest("div").querySelector(".txt");
         if (name.classList.contains("active")) {
-          count--;
-          document.getElementById("counter").innerHTML = count;
+          counterMinus();
         }
-        count++;
-        document.getElementById("counter").innerHTML = count;
+        counterPlus();
 
         checkbox(newElement);
 
